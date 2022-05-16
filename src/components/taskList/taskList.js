@@ -1,13 +1,16 @@
 import "./taskList.css";
 import Task from "../task";
+import React from "react";
 
-const TaskList = ({todos}) => {
+const TaskList = ({todos, onDeleted}) => {
+
     const element = todos.map((item) => {
         const {id, ...itemProps} = item;
         return (
-            <li key={id}>
-                <Task {...itemProps}/>
-            </li>
+            <React.Fragment key={id}>
+                <Task {...itemProps}
+                      onDeleted={() => onDeleted(id)}/>
+            </React.Fragment>
         );
     })
 
