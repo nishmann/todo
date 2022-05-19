@@ -20,7 +20,8 @@ class App extends Component {
         return {
             label,
             done: false,
-            id: this.countId++
+            id: this.countId++,
+            time: new Date()
         }
     }
 

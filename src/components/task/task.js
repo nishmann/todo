@@ -1,6 +1,7 @@
 import "./task.css";
+import {formatDistanceToNow} from "date-fns";
 
-const Task = ({label, onDeleted, onToggleDone, done}) => {
+const Task = ({label, onDeleted, onToggleDone, done, time}) => {
     let classNames = "";
     if (done) {
         classNames += "completed"
@@ -16,7 +17,7 @@ const Task = ({label, onDeleted, onToggleDone, done}) => {
                               onClick={onToggleDone}>
                             {label}
                         </span>
-                    <span className="created">created 5 minutes ago</span>
+                    <span className="created">created {formatDistanceToNow(time, {includeSeconds: true})}</span>
                 </label>
                 <button className="icon icon-edit"></button>
                 <button className="icon icon-destroy"
