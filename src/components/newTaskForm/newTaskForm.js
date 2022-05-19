@@ -1,10 +1,22 @@
 import React, {Component} from "react";
 import "./newTaskForm.css";
+import PropTypes from "prop-types";
 
 class NewTaskForm extends Component {
     state = {
         value: ""
     }
+
+    static defaultProps = {
+        handleChange: () => {},
+        onSubmitChange: () => {}
+    }
+
+    static propsTypes = {
+        handleChange: PropTypes.func,
+        onSubmitChange: PropTypes.func
+    }
+
     handleChange = (e) => {
         this.setState({
             value: e.target.value

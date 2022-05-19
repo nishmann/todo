@@ -1,5 +1,6 @@
 import React from "react";
 import "./tasksFilter.css";
+import PropTypes from "prop-types";
 
 class TasksFilter extends React.Component {
     state = {
@@ -10,10 +11,19 @@ class TasksFilter extends React.Component {
         ]
     }
 
+    static defaultProps = {
+        onFilterChange: () => {},
+        filter: "all"
+    }
+
+    static propTypes = {
+        onFilterChange: PropTypes.func,
+        filter: PropTypes.string
+    }
+
     render() {
         const {filter, onFilterChange} = this.props;
         const {buttons} = this.state;
-
         const filterBtn = buttons.map(({name, label}) => {
             const isActive = filter === name;
             const clazz = isActive ? 'selected' : '';
