@@ -1,48 +1,52 @@
-import React, {Component} from "react";
-import "./newTaskForm.css";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import './newTaskForm.css';
+import PropTypes from 'prop-types';
 
 class NewTaskForm extends Component {
-    state = {
-        value: ""
-    }
+  constructor() {
+    super();
+    this.state = {
+      value: '',
+    };
+  }
 
-    static defaultProps = {
-        handleChange: () => {},
-        onSubmitChange: () => {}
-    }
+  handleChange = (e) => {
+    this.setState({
+      value: e.target.value,
+    });
+  };
 
-    static propsTypes = {
-        handleChange: PropTypes.func,
-        onSubmitChange: PropTypes.func
-    }
+  onSubmitChange = (e) => {
+    e.preventDefault();
+    const { addItem } = this.props;
+    const { value } = this.state;
+    addItem(value);
+    this.setState({
+      value: '',
+    });
+  };
 
-    handleChange = (e) => {
-        this.setState({
-            value: e.target.value
-        })
-    }
-    onSubmitChange = (e) => {
-        e.preventDefault();
-        this.props.addItem(this.state.value);
-        this.setState({
-            value: ""
-        })
-    }
-
-    render() {
-        return (
-            <div className="header">
-                <h1>todos</h1>
-                <form onSubmit={this.onSubmitChange}>
-                    <input className="new-todo"
-                           value={this.state.value}
-                           onChange={this.handleChange}
-                           placeholder="What needs to be done?" autoFocus/>
-                </form>
-            </div>
-        );
-    }
+  render() {
+    const { value } = this.state;
+    return (
+      <div className="header">
+        <h1>todos</h1>
+        <form onSubmit={this.onSubmitChange}>
+          <input className="new-todo" value={value} onChange={this.handleChange} placeholder="What needs to be done?" />
+        </form>
+      </div>
+    );
+  }
 }
+
+NewTaskForm.defaultProps = {
+  handleChange: () => {},
+  onSubmitChange: () => {},
+};
+
+NewTaskForm.propsTypes = {
+  handleChange: PropTypes.func,
+  onSubmitChange: PropTypes.func,
+};
 
 export default NewTaskForm;
