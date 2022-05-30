@@ -12,10 +12,15 @@ function Task({ label, onDeleted, onToggleDone, done, time }) {
       <div className="view">
         <input className="toggle" onChange={onToggleDone} type="checkbox" />
         <label>
-          <span className="description" onClick={onToggleDone} onKeyDown={onToggleDone} aria-hidden="true">
+          <span className="title" onClick={onToggleDone} onKeyDown={onToggleDone} aria-hidden="true">
             {label}
           </span>
-          <span className="created">created {formatDistanceToNow(time, { includeSeconds: true })}</span>
+          <span className="description">
+            <button className="icon icon-play" type="button" />
+            <button className="icon icon-pause" type="button" />
+            12:25
+          </span>
+          <span className="description">created {formatDistanceToNow(time, { includeSeconds: true })}</span>
         </label>
         <button className="icon icon-edit" type="button" />
         <button className="icon icon-destroy" type="button" onClick={onDeleted} />

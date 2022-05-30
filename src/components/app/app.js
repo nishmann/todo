@@ -11,11 +11,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      todoData: [
-        this.createTodoItem('Learn JavaScript'),
-        this.createTodoItem('Learn TypeScript'),
-        this.createTodoItem('Drink Coffee'),
-      ],
+      todoData: [this.createTodoItem('Learn'), this.createTodoItem('Sleep'), this.createTodoItem('Drink')],
       filter: 'all',
     };
   }
