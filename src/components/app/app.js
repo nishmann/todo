@@ -11,14 +11,18 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      todoData: [this.createTodoItem('Learn'), this.createTodoItem('Sleep'), this.createTodoItem('Drink')],
+      todoData: [
+        this.createTodoItem('Learn', 0, 0),
+        this.createTodoItem('Sleep', 0, 0),
+        this.createTodoItem('Drink', 0, 0),
+      ],
       filter: 'all',
     };
   }
 
-  addNewItem = (text) => {
+  addNewItem = (text, min, sec) => {
     this.setState(({ todoData }) => {
-      const newItem = this.createTodoItem(text);
+      const newItem = this.createTodoItem(text, min, sec);
       const newArray = [...todoData, newItem];
       return {
         todoData: newArray,
@@ -74,12 +78,14 @@ class App extends Component {
     }
   }
 
-  createTodoItem(label) {
+  createTodoItem(label, min, sec) {
     return {
       label,
       done: false,
       id: this.countId++,
       time: new Date(),
+      min: Number(min),
+      sec: Number(sec),
     };
   }
 

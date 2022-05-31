@@ -2,7 +2,7 @@ import './task.css';
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 
-function Task({ label, onDeleted, onToggleDone, done, time }) {
+function Task({ label, onDeleted, onToggleDone, done, time, min, sec }) {
   let classNames = '';
   if (done) {
     classNames += 'completed';
@@ -18,7 +18,7 @@ function Task({ label, onDeleted, onToggleDone, done, time }) {
           <span className="description">
             <button className="icon icon-play" type="button" />
             <button className="icon icon-pause" type="button" />
-            12:25
+            {min}:{sec}
           </span>
           <span className="description">created {formatDistanceToNow(time, { includeSeconds: true })}</span>
         </label>

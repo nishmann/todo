@@ -7,34 +7,50 @@ class NewTaskForm extends Component {
     super();
     this.state = {
       value: '',
+      min: '',
+      sec: '',
     };
   }
 
-  handleChange = (e) => {
+  handleChange = (e, field) => {
     this.setState({
-      value: e.target.value,
+      [field]: e.target.value,
     });
   };
 
   onSubmitChange = (e) => {
     e.preventDefault();
     const { addItem } = this.props;
-    const { value } = this.state;
-    addItem(value);
-    this.setState({
-      value: '',
-    });
+    const { value, min, sec } = this.state;
+    if (value.trim()) {
+      addItem(value, min, sec);
+    }
   };
 
   render() {
-    const { value } = this.state;
+    const { value, min, sec } = this.state;
     return (
       <div className="header">
         <h1>todos</h1>
-        <form className="new-todo-form" onSubmit={this.onSubmitChange}>
-          <input className="new-todo" value={value} onChange={this.handleChange} placeholder="What needs to be done?" />
-          <input className="new-todo-form__timer" placeholder="Min" />
-          <input className="new-todo-form__timer" placeholder="Sec" />
+        <form className="new-todo-form" onSubmit={(e) => this.onSubmitChange(e)}>
+          <input
+            className="new-todo"
+            value={value}
+            onChange={(e) => this.handleChange(e, 'value')}
+            placeholder="What needs to be done?"
+          />
+          <input
+            className="new-todo-form__timer"
+            value={min}
+            onChange={(e) => this.handleChange(e, 'min')}
+            placeholder="Min"
+          />
+          <input
+            className="new-todo-form__timer"
+            value={sec}
+            onChange={(e) => this.handleChange(e, 'sec')}
+            placeholder="Sec"
+          />
         </form>
       </div>
     );
@@ -42,8 +58,8 @@ class NewTaskForm extends Component {
 }
 
 NewTaskForm.defaultProps = {
-  handleChange: () => {},
-  onSubmitChange: () => {},
+  handleChange: () => { },
+  onSubmitChange: () => { },
 };
 
 NewTaskForm.propsTypes = {
