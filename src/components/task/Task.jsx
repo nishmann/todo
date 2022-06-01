@@ -7,10 +7,11 @@ function Task({ label, onDeleted, onToggleDone, done, time, onEditingItem }) {
   if (done) {
     classNames += 'completed';
   }
+
   return (
     <li className={classNames}>
       <div className="view">
-        <input className="toggle" onChange={onToggleDone} type="checkbox" />
+        <input className="toggle" onChange={onToggleDone} type="checkbox" checked={done} />
         <label>
           <span className="description" onClick={onToggleDone} onKeyDown={onToggleDone} aria-hidden="true">
             {label}
