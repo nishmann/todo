@@ -10,17 +10,19 @@ class NewTaskForm extends Component {
     };
   }
 
-  handleChange = (e) => {
+  handleChange = (event) => {
     this.setState({
-      value: e.target.value,
+      value: event.target.value,
     });
   };
 
-  onSubmitChange = (e) => {
-    e.preventDefault();
+  onSubmitChange = (event) => {
+    event.preventDefault();
     const { addItem } = this.props;
     const { value } = this.state;
-    addItem(value);
+    if (value.trim()) {
+      addItem(value);
+    }
     this.setState({
       value: '',
     });

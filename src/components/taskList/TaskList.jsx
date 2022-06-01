@@ -2,7 +2,7 @@ import './taskList.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Task from '../task';
+import Task from '../Task';
 
 function TaskList({ todos, onDeleted, onToggleDone }) {
   const element = todos.map((item) => {

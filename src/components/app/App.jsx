@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-
-import NewTaskForm from '../newTaskForm';
+import { v4 as uuidv4 } from 'uuid';
+import NewTaskForm from '../NewTaskForm';
 import './app.css';
-import TaskList from '../taskList';
-import Footer from '../footer';
+import TaskList from '../TaskList';
+import Footer from '../Footer';
 
 class App extends Component {
-  countId = 100;
-
   constructor() {
     super();
     this.state = {
@@ -82,8 +80,9 @@ class App extends Component {
     return {
       label,
       done: false,
-      id: this.countId++,
+      id: uuidv4(),
       time: new Date(),
+      isEditing: false,
     };
   }
 
