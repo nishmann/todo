@@ -18,8 +18,8 @@ function Task({ label, onDeleted, onToggleDone, done, time, onEditingItem }) {
           </span>
           <span className="created">created {formatDistanceToNow(time, { includeSeconds: true })}</span>
         </label>
-        <button className="icon icon-edit" type="button" onClick={onEditingItem} />
-        <button className="icon icon-destroy" type="button" onClick={onDeleted} />
+        <button className="icon icon-edit" type="button" onClick={onEditingItem} title="edit" />
+        <button className="icon icon-destroy" type="button" onClick={onDeleted} title="delete" />
       </div>
     </li>
   );
