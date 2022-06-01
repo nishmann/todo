@@ -1,5 +1,8 @@
+/* eslint-disable react/no-unused-class-component-methods */
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+
 import NewTaskForm from '../NewTaskForm';
 import './app.css';
 import TaskList from '../TaskList';
@@ -17,6 +20,42 @@ class App extends Component {
       filter: 'all',
     };
   }
+
+  changeTaskForm = (id, label) => {
+    this.setState(({ todoData }) => {
+      const newItem = todoData.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            label,
+            isEditing: false,
+            done: false,
+          };
+        }
+        return item;
+      });
+      return {
+        todoData: newItem,
+      };
+    });
+  };
+
+  editingItem = (id) => {
+    this.setState(({ todoData }) => {
+      const newItem = todoData.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            isEditing: true,
+          };
+        }
+        return item;
+      });
+      return {
+        todoData: newItem,
+      };
+    });
+  };
 
   addNewItem = (text) => {
     this.setState(({ todoData }) => {
@@ -94,7 +133,13 @@ class App extends Component {
       <section className="todoapp">
         <NewTaskForm addItem={this.addNewItem} />
         <section className="main">
-          <TaskList todos={onFilter} onDeleted={this.deleteItem} onToggleDone={this.onToggleDone} />
+          <TaskList
+            todos={onFilter}
+            onDeleted={this.deleteItem}
+            onToggleDone={this.onToggleDone}
+            onEditingItem={this.editingItem}
+            onChangeTaskForm={this.changeTaskForm}
+          />
           <Footer
             activeItem={activeTasks}
             deleteAll={this.deleteAll}
