@@ -1,10 +1,11 @@
 import React from 'react';
 
 class ChangeTaskForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { task } = this.props;
     this.state = {
-      newTask: '',
+      newTask: task,
     };
   }
 
@@ -21,12 +22,12 @@ class ChangeTaskForm extends React.Component {
   };
 
   render() {
-    const { task } = this.props;
+    const { newTask } = this.state;
     return (
       <li className="editing">
         <input
           className="edit"
-          placeholder={task}
+          value={newTask}
           onKeyDown={this.onKeyPress}
           onChange={(e) => this.setState({ newTask: e.target.value })}
         />
