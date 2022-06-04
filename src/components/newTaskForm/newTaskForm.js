@@ -58,8 +58,8 @@ class NewTaskForm extends Component {
 }
 
 NewTaskForm.defaultProps = {
-  handleChange: () => { },
-  onSubmitChange: () => { },
+  handleChange: () => {},
+  onSubmitChange: () => {},
 };
 
 NewTaskForm.propsTypes = {

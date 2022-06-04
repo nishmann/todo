@@ -1,7 +1,7 @@
 import './footer.css';
 import PropTypes from 'prop-types';
 
-import TasksFilter from '../tasksFilter';
+import TasksFilter from '../TasksFilter';
 
 function Footer({ activeItem, deleteAll, onFilterChange, filter }) {
   return (

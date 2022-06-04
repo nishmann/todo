@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import NewTaskForm from '../newTaskForm';
+import NewTaskForm from '../NewTaskForm';
 import './app.css';
-import TaskList from '../taskList';
-import Footer from '../footer';
+import TaskList from '../TaskList';
+import Footer from '../Footer';
 
 class App extends Component {
   countId = 100;
