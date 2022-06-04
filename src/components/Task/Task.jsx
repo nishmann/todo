@@ -2,7 +2,7 @@ import './task.css';
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 
-function Task({ label, onDeleted, onToggleDone, done, time, min, sec }) {
+function Task({ label, onDeleted, onToggleDone, onEditingItem, done, time, min, sec }) {
   let classNames = '';
   if (done) {
     classNames += 'completed';
@@ -10,7 +10,7 @@ function Task({ label, onDeleted, onToggleDone, done, time, min, sec }) {
   return (
     <li className={classNames}>
       <div className="view">
-        <input className="toggle" onChange={onToggleDone} type="checkbox" />
+        <input className="toggle" onChange={onToggleDone} type="checkbox" checked={done} />
         <label>
           <span className="title" onClick={onToggleDone} onKeyDown={onToggleDone} aria-hidden="true">
             {label}
@@ -22,8 +22,8 @@ function Task({ label, onDeleted, onToggleDone, done, time, min, sec }) {
           </span>
           <span className="description">created {formatDistanceToNow(time, { includeSeconds: true })}</span>
         </label>
-        <button className="icon icon-edit" type="button" />
-        <button className="icon icon-destroy" type="button" onClick={onDeleted} />
+        <button className="icon icon-edit" type="button" onClick={onEditingItem} title="edit" />
+        <button className="icon icon-destroy" type="button" onClick={onDeleted} title="delete" />
       </div>
     </li>
   );

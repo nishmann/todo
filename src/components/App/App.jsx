@@ -8,8 +8,8 @@ import Footer from '../Footer';
 class App extends Component {
   countId = 100;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       todoData: [
         this.createTodoItem('Learn', 0, 0),
@@ -19,6 +19,42 @@ class App extends Component {
       filter: 'all',
     };
   }
+
+  changeTaskForm = (id, label) => {
+    this.setState(({ todoData }) => {
+      const newItem = todoData.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            label,
+            isEditing: false,
+            done: false,
+          };
+        }
+        return item;
+      });
+      return {
+        todoData: newItem,
+      };
+    });
+  };
+
+  editingItem = (id) => {
+    this.setState(({ todoData }) => {
+      const newItem = todoData.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            isEditing: true,
+          };
+        }
+        return item;
+      });
+      return {
+        todoData: newItem,
+      };
+    });
+  };
 
   addNewItem = (text, min, sec) => {
     this.setState(({ todoData }) => {
@@ -86,6 +122,7 @@ class App extends Component {
       time: new Date(),
       min: Number(min),
       sec: Number(sec),
+      isEditing: false,
     };
   }
 
@@ -97,7 +134,13 @@ class App extends Component {
       <section className="todoapp">
         <NewTaskForm addItem={this.addNewItem} />
         <section className="main">
-          <TaskList todos={onFilter} onDeleted={this.deleteItem} onToggleDone={this.onToggleDone} />
+          <TaskList
+            todos={onFilter}
+            onDeleted={this.deleteItem}
+            onToggleDone={this.onToggleDone}
+            onEditingItem={this.editingItem}
+            onChangeTaskForm={this.changeTaskForm}
+          />
           <Footer
             activeItem={activeTasks}
             deleteAll={this.deleteAll}

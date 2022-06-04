@@ -3,14 +3,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Task from '../Task';
+import ChangeTaskForm from '../ChangeTaskForm';
 
-function TaskList({ todos, onDeleted, onToggleDone }) {
+function TaskList({ todos, onDeleted, onToggleDone, onChangeTaskForm, onEditingItem }) {
   const element = todos.map((item) => {
     const { id, ...itemProps } = item;
     return (
       <React.Fragment key={id}>
         {/* eslint-disable react/jsx-props-no-spreading  */}
-        <Task {...itemProps} onDeleted={() => onDeleted(id)} onToggleDone={() => onToggleDone(id)} />
+        {item.isEditing ? (
+          <ChangeTaskForm task={item.label} id={id} onChangeTaskForm={onChangeTaskForm} />
+        ) : (
+          <Task
+            {...itemProps}
+            onEditingItem={() => onEditingItem(id)}
+            onDeleted={() => onDeleted(id)}
+            onToggleDone={() => onToggleDone(id)}
+          />
+        )}
       </React.Fragment>
     );
   });
