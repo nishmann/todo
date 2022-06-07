@@ -3,8 +3,8 @@ import './newTaskForm.css';
 import PropTypes from 'prop-types';
 
 class NewTaskForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       value: '',
       min: '',
@@ -12,19 +12,36 @@ class NewTaskForm extends Component {
     };
   }
 
-  handleChange = (e, field) => {
+  handleChangeValue = (e) => {
     this.setState({
-      [field]: e.target.value,
+      value: e.target.value,
     });
   };
 
-  onSubmitChange = (e) => {
-    e.preventDefault();
+  handleChangeMin = (e) => {
+    this.setState({
+      min: e.target.value,
+    });
+  };
+
+  handleChangeSec = (e) => {
+    this.setState({
+      sec: e.target.value,
+    });
+  };
+
+  onSubmitChange = (event) => {
+    event.preventDefault();
     const { addItem } = this.props;
     const { value, min, sec } = this.state;
     if (value.trim()) {
       addItem(value, min, sec);
     }
+    this.setState({
+      value: '',
+      min: '',
+      sec: '',
+    });
   };
 
   render() {
@@ -32,23 +49,23 @@ class NewTaskForm extends Component {
     return (
       <div className="header">
         <h1>todos</h1>
-        <form className="new-todo-form" onSubmit={(e) => this.onSubmitChange(e)}>
+        <form className="new-todo-form" onSubmit={this.onSubmitChange}>
           <input
             className="new-todo"
             value={value}
-            onChange={(e) => this.handleChange(e, 'value')}
+            onChange={(e) => this.handleChangeValue(e)}
             placeholder="What needs to be done?"
           />
           <input
             className="new-todo-form__timer"
             value={min}
-            onChange={(e) => this.handleChange(e, 'min')}
+            onChange={(e) => this.handleChangeMin(e)}
             placeholder="Min"
           />
           <input
             className="new-todo-form__timer"
             value={sec}
-            onChange={(e) => this.handleChange(e, 'sec')}
+            onChange={(e) => this.handleChangeSec(e)}
             placeholder="Sec"
           />
         </form>
@@ -57,14 +74,8 @@ class NewTaskForm extends Component {
   }
 }
 
-NewTaskForm.defaultProps = {
-  handleChange: () => {},
-  onSubmitChange: () => {},
-};
-
 NewTaskForm.propsTypes = {
-  handleChange: PropTypes.func,
-  onSubmitChange: PropTypes.func,
+  addItem: PropTypes.func.isRequired,
 };
 
 export default NewTaskForm;

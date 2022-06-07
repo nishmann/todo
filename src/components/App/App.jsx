@@ -1,9 +1,10 @@
+import './app.css';
+
 import React, { Component } from 'react';
 
-import NewTaskForm from '../NewTaskForm';
-import './app.css';
 import TaskList from '../TaskList';
 import Footer from '../Footer';
+import NewTaskForm from '../NewTaskForm';
 
 class App extends Component {
   countId = 100;
@@ -57,11 +58,10 @@ class App extends Component {
   };
 
   addNewItem = (text, min, sec) => {
+    const newItem = this.createTodoItem(text, min, sec);
     this.setState(({ todoData }) => {
-      const newItem = this.createTodoItem(text, min, sec);
-      const newArray = [...todoData, newItem];
       return {
-        todoData: newArray,
+        todoData: [...todoData, newItem],
       };
     });
   };
@@ -117,11 +117,11 @@ class App extends Component {
   createTodoItem(label, min, sec) {
     return {
       label,
+      min: Number(min),
+      sec: Number(sec),
       done: false,
       id: this.countId++,
       time: new Date(),
-      min: Number(min),
-      sec: Number(sec),
       isEditing: false,
     };
   }

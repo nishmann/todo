@@ -18,7 +18,9 @@ function Task({ label, onDeleted, onToggleDone, onEditingItem, done, time, min, 
           <span className="description">
             <button className="icon icon-play" type="button" />
             <button className="icon icon-pause" type="button" />
-            {min}:{sec}
+            <span className="time">
+              {min}:{sec}
+            </span>
           </span>
           <span className="description">created {formatDistanceToNow(time, { includeSeconds: true })}</span>
         </label>

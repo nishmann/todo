@@ -174,3 +174,7 @@
 .icon-play:after {
     content: '▶';
 }
+
+.time {
+    padding-left: 10px;
+}
