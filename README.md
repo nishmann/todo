@@ -2,4 +2,5 @@
 + React
 + Vercel
 
-# Link: https://todo-indol-seven.vercel.app #
+# todo: https://todo-indol-seven.vercel.app #
+# task_timer: https://todo-aziretsuiuntbek.vercel.app #
