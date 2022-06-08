@@ -1,6 +1,6 @@
 import './app.css';
 
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import TaskList from '../TaskList';
 import Footer from '../Footer';
@@ -60,8 +60,9 @@ class App extends Component {
   addNewItem = (text, min, sec) => {
     const newItem = this.createTodoItem(text, min, sec);
     this.setState(({ todoData }) => {
+      const newArray = [...todoData, newItem];
       return {
-        todoData: [...todoData, newItem],
+        todoData: newArray,
       };
     });
   };
@@ -123,6 +124,7 @@ class App extends Component {
       id: this.countId++,
       time: new Date(),
       isEditing: false,
+      timer: false,
     };
   }
 

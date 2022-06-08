@@ -31,9 +31,9 @@ class NewTaskForm extends Component {
   };
 
   onSubmitChange = (event) => {
-    event.preventDefault();
     const { addItem } = this.props;
     const { value, min, sec } = this.state;
+    event.preventDefault();
     if (value.trim()) {
       addItem(value, min, sec);
     }
@@ -49,25 +49,16 @@ class NewTaskForm extends Component {
     return (
       <div className="header">
         <h1>todos</h1>
-        <form className="new-todo-form" onSubmit={this.onSubmitChange}>
+        <form className="new-todo-form" onSubmit={(event) => this.onSubmitChange(event)}>
           <input
             className="new-todo"
             value={value}
-            onChange={(e) => this.handleChangeValue(e)}
+            onChange={this.handleChangeValue}
             placeholder="What needs to be done?"
           />
-          <input
-            className="new-todo-form__timer"
-            value={min}
-            onChange={(e) => this.handleChangeMin(e)}
-            placeholder="Min"
-          />
-          <input
-            className="new-todo-form__timer"
-            value={sec}
-            onChange={(e) => this.handleChangeSec(e)}
-            placeholder="Sec"
-          />
+          <input className="new-todo-form__timer" value={min} onChange={this.handleChangeMin} placeholder="Min" />
+          <input className="new-todo-form__timer" value={sec} onChange={this.handleChangeSec} placeholder="Sec" />
+          <button type="submit" hidden />
         </form>
       </div>
     );
