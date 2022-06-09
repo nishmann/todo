@@ -21,6 +21,36 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    this.watchTime = setInterval(() => {
+      this.setState(({ todoData }) => {
+        const newItem = todoData.map((item) => {
+          if (item.timer) {
+            if (item.sec === 59) {
+              return {
+                ...item,
+                sec: 0,
+                min: item.min + 1,
+              };
+            }
+            return {
+              ...item,
+              sec: item.sec + 1,
+            };
+          }
+          return item;
+        });
+        return {
+          todoData: newItem,
+        };
+      });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.watchTime);
+  }
+
   changeTaskForm = (id, label) => {
     this.setState(({ todoData }) => {
       const newItem = todoData.map((item) => {
@@ -85,6 +115,30 @@ class App extends Component {
     });
   };
 
+  startTimer = (id) => {
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex((el) => el.id === id);
+      const oldItem = todoData[idx];
+      const newItem = { ...oldItem, timer: true };
+      const newArray = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)];
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
+  stopTimer = (id) => {
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex((el) => el.id === id);
+      const oldItem = todoData[idx];
+      const newItem = { ...oldItem, timer: false };
+      const newArray = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)];
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
   onToggleDone = (id) => {
     this.setState(({ todoData }) => {
       const idx = todoData.findIndex((el) => el.id === id);
@@ -142,6 +196,8 @@ class App extends Component {
             onToggleDone={this.onToggleDone}
             onEditingItem={this.editingItem}
             onChangeTaskForm={this.changeTaskForm}
+            startTimer={this.startTimer}
+            stopTimer={this.stopTimer}
           />
           <Footer
             activeItem={activeTasks}

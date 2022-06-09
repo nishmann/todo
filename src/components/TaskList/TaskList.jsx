@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Task from '../Task';
 import ChangeTaskForm from '../ChangeTaskForm';
 
-function TaskList({ todos, onDeleted, onToggleDone, onChangeTaskForm, onEditingItem }) {
+function TaskList({ todos, onDeleted, onToggleDone, onChangeTaskForm, onEditingItem, stopTimer, startTimer }) {
   const element = todos.map((item) => {
     const { id, ...itemProps } = item;
     return (
@@ -19,6 +19,8 @@ function TaskList({ todos, onDeleted, onToggleDone, onChangeTaskForm, onEditingI
             onEditingItem={() => onEditingItem(id)}
             onDeleted={() => onDeleted(id)}
             onToggleDone={() => onToggleDone(id)}
+            startTimer={() => startTimer(id)}
+            stopTimer={() => stopTimer(id)}
           />
         )}
       </React.Fragment>
@@ -30,8 +32,6 @@ function TaskList({ todos, onDeleted, onToggleDone, onChangeTaskForm, onEditingI
 
 TaskList.defaultProps = {
   todos: [],
-  onDeleted: () => {},
-  onToggleDone: () => {},
 };
 
 TaskList.propTypes = {
@@ -43,8 +43,6 @@ TaskList.propTypes = {
       time: PropTypes.instanceOf(Date),
     })
   ),
-  onDeleted: PropTypes.func,
-  onToggleDone: PropTypes.func,
 };
 
 export default TaskList;
