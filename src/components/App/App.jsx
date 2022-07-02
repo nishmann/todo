@@ -65,7 +65,7 @@ function App() {
       });
       setTodoData(newItem);
     }, 1000);
-    return clearInterval(watchTime);
+    return () => clearInterval(watchTime);
   }, [todoData]);
 
   const changeTaskForm = (id, label) => {
