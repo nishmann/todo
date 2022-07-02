@@ -1,24 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class ChangeTaskForm extends React.Component {
-  constructor(props) {
-    super(props);
-    const { task } = this.props;
-    this.state = {
-      inputValue: task,
-    };
-  }
+function ChangeTaskForm({ task, onChangeTaskForm, id }) {
+  const [inputValue, setInputValue] = useState(task);
 
-  onHandlerInput = (event) => {
-    this.setState({
-      inputValue: event.target.value,
-    });
-  };
-
-  onKeyPress = (event) => {
-    const { inputValue } = this.state;
-    const { onChangeTaskForm, id } = this.props;
-
+  const onKeyPress = (event) => {
     if (event.key === 'Enter') {
       if (inputValue === '') {
         return null;
@@ -28,14 +13,16 @@ class ChangeTaskForm extends React.Component {
     return this;
   };
 
-  render() {
-    const { inputValue } = this.state;
-    return (
-      <li className="editing">
-        <input className="edit" value={inputValue} onChange={this.onHandlerInput} onKeyDown={this.onKeyPress} />
-      </li>
-    );
-  }
+  return (
+    <li className="editing">
+      <input
+        className="edit"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={onKeyPress}
+      />
+    </li>
+  );
 }
 
 export default ChangeTaskForm;
